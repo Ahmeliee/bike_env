@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>自助街景评分</title>
+<link
+     href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"
+     rel="stylesheet" />
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var current_pic=0;//当前预览图片序号（在上一张/下一张预览时使用）
+    var global_file;
+</script>
+</head>
+<body>
+    <!--背景图-->
+    <img src="u1.gif" style="width:100%; height:695px; position:relative;z-index:-1;"/>
+    <!--标题（图标+中英文）-->
+    <img src="u2.svg" style="position:absolute;left:500px;top:50px;width:80px;height:80px;opacity:0.7;"/>
+    <div style="position:absolute;left:600px;top:45px;font-family:'华文宋体 Bold', '华文宋体', sans-serif;font-size:48px;">自助街景评分</div>
+    <div style="position:absolute;left:615px;top:100px;font-family:'Century Bold', 'Century Normal', 'Century', sans-serif;font-size:24px;">Self-service Vista Score</div>
+    <!--显示图片列表-->
+    <div style="position:absolute;left:80px;top:160px;font-size:18px;text-align:center;color:black;">图片列表：</div>
+
+    <div style="overflow-y: auto; position:absolute;left:80px;top:190px;height: 450px; width:300px;">
+        <table id="table" border="1" align="center" style="width:280px;line-height: 30px;text-align:center;" >
+            <thead> 
+                <tr>
+                    <th style="width:240px;text-align:center;">图片名称</th>
+                    <th style="width:40px;text-align:center;"><input type="checkbox" id="top_cb" class="ace"/></th>
+                </tr>
+            </thead> 
+            <tbody id="meeting_minutes"> 
+                <tr><td>123.565223_31.524633_0_0.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_1.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_2.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_3.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_4.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_5.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_6.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_7.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_8.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_9.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_10.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_11.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_12.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_13.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_14.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+                <tr><td>123.565223_31.524633_0_15.png</td><td><label> <input type="checkbox" class="ace"/></label></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <!--全选/全不选-->
+    <script type="text/javascript">
+        var flag = true;
+        $("#top_cb").click(function() {
+            var cb = $("input[type=checkbox]").filter(".ace");                    
+            for(var i = 0; i < cb.length; i++) {
+                cb[i].checked = flag;
+            }
+            flag = !flag;
+        })
+    </script>
+    <!--选择图片-->
+    <form action="" method="" enctype='multipart/form-data'>
+        <!--用label掩饰input-->
+        <label for='my_file' class='inputlabelBox' style="position:absolute;left:400px;top:190px;width:100px;height:40px;background-color:rgba(22, 130, 213, 1);border-width:0px;border-width:0px;">
+            <div class="inputBox" style="text-align: center;line-height: 40px;color: white;">选择文件</div>
+        </label>
+        <input type="text" id="filenum" readonly="" style="position:absolute;left:400px;top:230px;width:100px;height:20px;border-width:0px;border-width:0px;text-align: center;opacity:0.6;"/>
+        <!--实际是input选择文件-->
+        <input type="file" id='my_file' multiple="multiple" name="fileAttach" style="display:none;" />
+    </form>
+    <script>
+        //选择图片，马上预览
+        my_file.onchange = function(){       
+            var inputlabelBox = document.querySelector('.inputlabelBox');
+            var my_file = document.querySelector('#my_file');
+            filenum.value=this.files.length+"个文件";//显示文件数量
+            current_pic=0;
+            var img = document.querySelector('#xmTanImg'); 
+            global_file=this.files;
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function()
+            {
+                img.src = this.result;
+            }
+        }
+                    
+    </script>
+    <!--图片预览-->
+    <div style="position:absolute;left:600px;top:160px;font-size:18px;text-align:center;color:black;">图片预览：</div>
+    <img id="xmTanImg"  style="position:absolute;left:600px;top:190px;width:700px;height:450px;"/>
+    <div style="position:absolute;left:580px;top:380px;font-size:16px;background-color:rgba(151, 212, 241, 1);color: black;"onclick="last_pic()">上<br/>一<br/>张</div>
+    <script type="text/javascript">
+        var last_pic=function(){   
+            var my_file = document.querySelector('#my_file');
+            current_pic=current_pic>0?current_pic-1:0;
+            var img = document.querySelector('#xmTanImg'); 
+            var file = global_file[current_pic];
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function()
+            {
+                img.src = this.result;
+            }
+        }
+    </script>
+    <div style="position:absolute;left:1304px;top:380px;font-size:16px;background-color:rgba(151, 212, 241, 1);color: black;"onclick="next_pic()">下<br/>一<br/>张</div>
+    <script type="text/javascript">
+        var next_pic=function(){   
+            var my_file = document.querySelector('#my_file');
+            current_pic=current_pic<global_file.length?current_pic+1:global_file.length;
+            var img = document.querySelector('#xmTanImg'); 
+            var file = global_file[current_pic];
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function()
+            {
+                img.src = this.result;
+            }
+        }
+    </script>
+    <!--上传图片-->
+    <button type="button" class="btn btn-success btn-block" style="position:absolute;left:400px;top:300px;width:100px;height:40px;background-color:rgba(22, 130, 213, 1);border-width:0px;border-width:0px;"onclick="up_picture()">上传图片</button>
+      <script type="text/javascript">
+        var getUrlParameter=function(name){//获取url传递的参数
+          name = name.replace(/[]/,"\[").replace(/[]/,"\[").replace(/[]/,"\\\]");
+          var regexS = "[\\?&]"+name+"=([^&#]*)";
+          var regex = new RegExp( regexS );
+          var results = regex.exec(window.parent.location.href );
+          if( results == null )
+            return ""; 
+          else 
+            return results[1];
+        }
+        var up_picture=function(){
+          var url = getUrlParameter('username');//获得用户名
+          window.alert('用户名：'+url);
+
+
+
+
+
+
+        }
+      </script>
+    <!--批量删除-->
+    <button type="button" class="btn btn-success btn-block" style="position:absolute;left:400px;top:390px;width:100px;height:40px;background-color:rgba(22, 130, 213, 1);border-width:0px;border-width:0px;"onclick="delete_batch()">批量删除</button>
+    <script type="text/javascript">
+    // 删除选项
+    var delete_batch=function(){
+        var cbs = $("input[type=checkbox]:checked").filter(".ace");//只删除class=ace的，而不能是删除所有选择的复选框。
+        if(cbs.length == 0) {
+            alert("请至少选择一个")                        
+        }
+        for(var i = 0; i < cbs.length; i++) {
+            var cb = cbs[i];                        
+            if(cb.id!='top_cb')//防止删除表头中的复选框                        
+                cb.parentNode.parentNode.parentNode.remove();
+        }
+
+
+
+
+
+
+
+
+
+    }
+    </script>
+    <!--评价-->
+    <button type="button" class="btn btn-success btn-block" style="position:absolute;left:400px;top:480px;width:100px;height:40px;background-color:rgba(22, 130, 213, 1);border-width:0px;border-width:0px;"onclick="get_score()">开始评价</button>
+    <script type="text/javascript">
+        var get_score=function(){
+
+
+
+        }
+    </script>
+    <!--导出评价结果-->
+    <button type="button" class="btn btn-success btn-block" style="position:absolute;left:400px;top:570px;width:100px;height:40px;background-color:rgba(22, 130, 213, 1);border-width:0px;border-width:0px;"onclick="load_results()">导出结果</button>
+    <script type="text/javascript">
+        var load_results=function(){
+
+
+
+        }
+    </script>
+
+</body>
+</html>
