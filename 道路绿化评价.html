@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>道路绿化评价</title>
+<link
+     href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"
+     rel="stylesheet" />
+ </head>
+<body>
+    <!--背景图-->
+    <img src="u1.gif" style="width:100%; height:695px; position:relative;z-index:-1;"/>
+    <!--标题（图标+中英文）-->
+    <img src="u2.svg" style="position:absolute;left:500px;top:50px;width:80px;height:80px;opacity:0.7;"/>
+    <div style="position:absolute;left:600px;top:45px;font-family:'华文宋体 Bold', '华文宋体', sans-serif;font-size:48px;">道路绿化评价</div>
+    <div style="position:absolute;left:600px;top:100px;font-family:'Century Bold', 'Century Normal', 'Century', sans-serif;font-size:24px;">Road’s Virescence Valuate</div>
+    <!--选择图片-->
+    <form action="" method="" enctype='multipart/form-data'>
+        <!--用label掩饰input-->
+        <label for='my_file' class='inputlabelBox' style="position:absolute;left:950px;top:180px;width:300px;height:40px;background-color:rgba(22, 130, 213, 1);border-width:0px;border-width:0px;">
+            <div class="inputBox" style="text-align: center;line-height: 40px;color: white;">选择文件</div>
+        </label>
+        <!--实际是input选择文件-->
+        <input type="file" id='my_file' style="display:none;" />
+    </form>
+    <script>
+        //选择图片，马上预览
+        my_file.onchange = function(){       
+            var inputlabelBox = document.querySelector('.inputlabelBox');
+            var my_file = document.querySelector('#my_file');
+            var img = document.querySelector('#xmTanImg'); 
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+
+            reader.onload = function()
+            {
+                img.src = this.result;
+            }
+        }
+                    
+    </script>
+    <!--图片预览-->
+    <img id="xmTanImg"  style="position:absolute;left:120px;top:180px;width:700px;height:450px;"/>
+    <!--上传图片-->
+    <button type="button" class="btn btn-success btn-block" style="position:absolute;left:950px;top:280px;width:300px;height:40px;background-color:rgba(22, 130, 213, 1);border-width:0px;border-width:0px;"onclick="up_picture()">上传图片</button>
+    <script type="text/javascript">
+      var get_score=function(){
+        
+
+
+      }
+    </script>
+    <!--评价-->
+    <button type="button" class="btn btn-success btn-block" style="position:absolute;left:950px;top:380px;width:300px;height:40px;background-color:rgba(22, 130, 213, 1);border-width:0px;border-width:0px;"onclick="get_score()">评价</button>
+    <script type="text/javascript">
+        var get_score=function(){
+            score_result.value=11111;//在评分结果框内显示
+
+
+        }
+    </script>
+    <!--评价结果(只读)-->
+    <div style="position:absolute;left:950px;top:480px;height:40px;width:140px;font-size:28px;text-align:center;color:black;">评价结果:</div>
+    <input id="score_result" type="text" readonly style="position:absolute;left:1090px;top:480px;width:160px;height:40px;"/>
+
+</body>
+</html>
